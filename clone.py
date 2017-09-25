@@ -22,7 +22,7 @@ def readData():
     #Speed 0 is not driving representation
     data = data[data['speed'] != 0].copy(deep = True)
     #Data augmentation to be done
-    dataReverse = data.clone(deep=True)
+    dataReverse = data.copy(deep=True)
     dataReverse['steering'] = -1.0*dataReverse['steering']
     images = []
     paths = data['center'].tolist()
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     model = Sequential()
     model.add(Cropping2D(cropping=((50,20), (0,0)), input_shape=(3,160,320)))
-    model.add(Lambda(lambda x:x / 255.0 - 0.5)
+    model.add(Lambda(lambda x:x / 255.0 - 0.5))
     #model.add(Flatten())
     #model.add(Dense(1))
     model.add(Convolution2D(6, 5, 5, activation="relu"))
