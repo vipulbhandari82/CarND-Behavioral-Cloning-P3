@@ -22,8 +22,9 @@ def readData():
     #Speed 0 is not driving representation
     data = data[data['speed'] != 0].copy(deep = True)
     #Data augmentation to be done
-    dataReverse = data.copy(deep=True)
-    dataReverse['steering'] = -1.0*dataReverse['steering']
+    #dataReverse = data.copy(deep=True)
+    #dataReverse = dataReverse[~dataReverse['steering'].between(-5.0,5.0)].copy(deep=True)
+    #dataReverse['steering'] = -1.0*dataReverse['steering']
     images = []
     paths = data['center'].tolist()
     for path in paths:
@@ -32,19 +33,21 @@ def readData():
 
     X_train = np.array(images)
     y_train = data['steering'].as_matrix()
-
+    """
     images = []                                                                
     paths = dataReverse['center'].tolist()                                            
     for path in paths:                                                         
         image = cv2.imread(path)
         image_flipped = np.fliplr(image)
-        images.append(image)
+        images.append(image_flipped)
 
     X_trainR = np.array(images) 
     y_trainR = dataReverse['steering'].as_matrix() 
-    
+    print(X_train.shape)
+    print(X_trainR.shape) 
     X_train = np.concatenate((X_train, X_trainR))
     y_train = np.concatenate((y_train, y_trainR))
+    """
     print(X_train.shape)
     print(y_train.shape)
     return X_train,y_train
@@ -59,14 +62,14 @@ if __name__ == "__main__":
 
     from keras.layers.core import Dense, Activation, Flatten, Dropout, Lambda
 
-    from keras.layers.convolutional import Convolution2D
+    from keras.layers.convolutional import Convolution2D, Cropping2D
 
     from keras.layers.pooling import MaxPooling2D
 
 
     model = Sequential()
-    model.add(Cropping2D(cropping=((50,20), (0,0)), input_shape=(3,160,320)))
-    model.add(Lambda(lambda x:x / 255.0 - 0.5))
+    model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
+    model.add(Cropping2D(cropping=((50,20), (0,0))))
     #model.add(Flatten())
     #model.add(Dense(1))
     model.add(Convolution2D(6, 5, 5, activation="relu"))
