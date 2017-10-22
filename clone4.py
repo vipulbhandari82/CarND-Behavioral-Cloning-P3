@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from io import BytesIO
 import base64
-import keras
 
 samples = []
 with open('./data/driving_log.csv') as csvfile:
@@ -79,30 +78,23 @@ validation_generator = generator(validation_samples, batch_size=32)
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Lambda, ELU, Cropping2D, MaxPooling2D
-from keras.layers.convolutional import Conv2D
+from keras.layers.convolutional import Convolution2D
 model = Sequential()
 #model.add(Cropping2D(cropping=((50,20), (0,0)), input_shape=(160,320,3)))
 model.add(Lambda(lambda x: x/225.0 - 0.5, input_shape=(160,320,3)))
-model.add(Conv2D(16, (8, 8), strides=(2, 2), padding="same"))
-model.add(ELU())
-model.add(Conv2D(16, (8, 8), strides=(2, 2), padding="same"))
-model.add(ELU())
-model.add(Conv2D(16, (8, 8), strides=(2, 2), padding="same"))
+model.add(Convolution2D(16, 8, 8, subsample=(2,2), border_mode="same"))
+model.add(Convolution2D(16, 8, 8, subsample=(2,2), border_mode="same"))
+model.add(Convolution2D(16, 8, 8, subsample=(2,2), border_mode="same"))
 model.add(ELU())
 model.add(MaxPooling2D())
-model.add(Conv2D(32, (5, 5), strides=(2, 2), padding="same"))
+model.add(Convolution2D(32, 5, 5, subsample=(2, 2), border_mode="same"))
+model.add(Convolution2D(32, 5, 5, subsample=(2, 2), border_mode="same"))
+model.add(Convolution2D(32, 5, 5, subsample=(2, 2), border_mode="same"))
 model.add(ELU())
-model.add(Conv2D(32, (5, 5), strides=(2, 2), padding="same"))
-model.add(ELU())
-model.add(Conv2D(32, (5, 5), strides=(2, 2), padding="same"))
 model.add(MaxPooling2D())
-model.add(ELU())
-model.add(Conv2D(64, (3, 3), strides=(2, 2), padding="same"))
-model.add(ELU())
-model.add(Conv2D(64, (3, 3), strides=(2, 2), padding="same"))
-model.add(ELU())
-model.add(Conv2D(64, (3, 3), strides=(2, 2), padding="same"))
-model.add(ELU())
+model.add(Convolution2D(64, 5, 5, subsample=(2, 2), border_mode="same"))
+model.add(Convolution2D(64, 5, 5, subsample=(2, 2), border_mode="same"))
+model.add(Convolution2D(64, 5, 5, subsample=(2, 2), border_mode="same"))
 model.add(Flatten())
 model.add(Dropout(.2))
 model.add(ELU())
@@ -116,9 +108,9 @@ model.add(ELU())
 model.add(Dense(1))
 
 model.compile(optimizer="adam", loss="mse")
-tbCallBack = keras.callbacks.TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=True)
 
-history_object = model.fit_generator(train_generator, callbacks=[tbCallBack], steps_per_epoch= 3*len(train_samples)/32, validation_data=validation_generator, validation_steps=3*len(validation_samples)/32, nb_epoch=5)
+
+history_object = model.fit_generator(train_generator, samples_per_epoch= 3*len(train_samples), validation_data=validation_generator, nb_val_samples=3*len(validation_samples), nb_epoch=5)
 model.save('modelComma.h5')
 ### print the keys contained in the history object
 print(history_object.history.keys())
@@ -131,5 +123,3 @@ plt.ylabel('mean squared error loss')
 plt.xlabel('epoch')
 plt.legend(['training set', 'validation set'], loc='upper right')
 plt.show()
-
-
