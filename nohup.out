@@ -1,0 +1,45 @@
+Using TensorFlow backend.
+Traceback (most recent call last):
+  File "clone3.py", line 5, in <module>
+    import keras as kr
+  File "/home/nvidia/.local/lib/python3.5/site-packages/keras/__init__.py", line 4, in <module>
+    from . import activations
+  File "/home/nvidia/.local/lib/python3.5/site-packages/keras/activations.py", line 6, in <module>
+    from .engine import Layer
+  File "/home/nvidia/.local/lib/python3.5/site-packages/keras/engine/__init__.py", line 8, in <module>
+    from .training import Model
+  File "/home/nvidia/.local/lib/python3.5/site-packages/keras/engine/training.py", line 25, in <module>
+    from .. import callbacks as cbks
+  File "/home/nvidia/.local/lib/python3.5/site-packages/keras/callbacks.py", line 26, in <module>
+    from tensorflow.contrib.tensorboard.plugins import projector
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/__init__.py", line 38, in <module>
+    from tensorflow.contrib import keras
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/keras/__init__.py", line 26, in <module>
+    from tensorflow.contrib.keras.api.keras import *
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/keras/api/keras/__init__.py", line 25, in <module>
+    from tensorflow.contrib.keras.api.keras import activations
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/keras/api/keras/activations/__init__.py", line 22, in <module>
+    from tensorflow.contrib.keras.python.keras.activations import elu
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/keras/python/keras/__init__.py", line 34, in <module>
+    from tensorflow.contrib.keras.python.keras import preprocessing
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/keras/python/keras/preprocessing/__init__.py", line 21, in <module>
+    from tensorflow.contrib.keras.python.keras.preprocessing import image
+  File "/usr/local/lib/python3.5/dist-packages/tensorflow/contrib/keras/python/keras/preprocessing/image.py", line 43, in <module>
+    from scipy import linalg
+  File "/usr/lib/python3/dist-packages/scipy/linalg/__init__.py", line 174, in <module>
+    from .misc import *
+  File "/usr/lib/python3/dist-packages/scipy/linalg/misc.py", line 6, in <module>
+    from .lapack import get_lapack_funcs
+  File "/usr/lib/python3/dist-packages/scipy/linalg/lapack.py", line 362, in <module>
+    from scipy.linalg import _flapack
+KeyboardInterrupt
+2017-10-21 22:34:36.591228: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:857] ARM64 does not support NUMA - returning NUMA node zero
+2017-10-21 22:34:36.591380: I tensorflow/core/common_runtime/gpu/gpu_device.cc:955] Found device 0 with properties: 
+name: NVIDIA Tegra X1
+major: 5 minor: 3 memoryClockRate (GHz) 0.9984
+pciBusID 0000:00:00.0
+Total memory: 3.89GiB
+Free memory: 2.04GiB
+2017-10-21 22:34:36.591444: I tensorflow/core/common_runtime/gpu/gpu_device.cc:976] DMA: 0 
+2017-10-21 22:34:36.591489: I tensorflow/core/common_runtime/gpu/gpu_device.cc:986] 0:   Y 
+2017-10-21 22:34:36.591533: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Creating TensorFlow device (/gpu:0) -> (device: 0, name: NVIDIA Tegra X1, pci bus id: 0000:00:00.0)
