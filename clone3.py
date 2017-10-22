@@ -117,7 +117,7 @@ model.add(Dense(1))
 model.compile(optimizer="adam", loss="mse")
 
 
-history_object = model.fit_generator(train_generator, steps_per_epoch= 3*len(train_samples)/batch_size, validation_data=validation_generator, validation_steps=3*len(validation_samples)/batch_size, nb_epoch=5)
+history_object = model.fit_generator(train_generator, steps_per_epoch= 3*len(train_samples)/train_generator.batch_size, validation_data=validation_generator, validation_steps=3*len(validation_samples)/validation_generator.batch_size, nb_epoch=5)
 model.save('modelComma.h5')
 ### print the keys contained in the history object
 print(history_object.history.keys())
